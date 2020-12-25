@@ -8,7 +8,6 @@ const port = 3000  // port
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 app.set('view options', { delimiter: '?' });
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -16,7 +15,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 // ส่วนของการใช้งาน router module ต่างๆ 
 const userRouter = require('./routes/users')
 const userApi = require('./api/users')
-
 app.use('/user', userRouter)
 app.use('/api', [userApi])
 
@@ -31,9 +29,7 @@ app.use(function (err, req, res, next) {
     // กำหนด response local variables 
     res.locals.message = err.message
     res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-    // กำหนด status และ render หน้า error page
-    res.status(err.status || 500) // ถ้ามี status หรือถ้าไม่มีใช้เป็น 500
+    res.status(err.status || 500)
     res.render('error')
 })
 
