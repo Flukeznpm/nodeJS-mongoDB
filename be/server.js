@@ -7,16 +7,16 @@ const port = 3000  // port
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
-app.set('view options', { delimiter: '?' });
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 // ส่วนของการใช้งาน router module ต่างๆ 
+const indexRouter = require('./routes/index')
 const userRouter = require('./routes/users')
-const userApi = require('./api/users')
+app.use('/', indexRouter)
 app.use('/user', userRouter)
-app.use('/api', [userApi])
 
 // ทำงานทุก request ที่เข้ามา 
 app.use(function (req, res, next) {
@@ -33,7 +33,7 @@ app.use(function (err, req, res, next) {
     res.render('error')
 })
 
-app.listen(PORT, () => {
+app.listen(port, () => {
     console.log(`Server is running on port : ${port}`)
 })
 
