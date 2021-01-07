@@ -8,30 +8,30 @@
 </head>
 
 <body>
-    <div class='container'>
-        <h2>เขียนบทความ</h2>
-        <form class="" action="" method="post">
-            <div class="form-group">
-                <label for="">ชื่อบทความ</label>
+        <div class='container'>
+            <h2>เขียนบทความ</h2>
+            <form class="" action="/blog/add" method="post">
+                <div class="form-group">
+                    <label for="">ชื่อบทความ</label>
+                    <br>
+                    <input type="text" name="name" value="" class="form-control">
+                </div>
                 <br>
-                <input type="text" name="name" value="" class="form-control">
-            </div>
-            <br>
-            <div class="form-group">
-                <label for="">รายละเอียด</label>
+                <div class="form-group">
+                    <label for="">รายละเอียด</label>
+                    <br>
+                    <textarea type="text" name="description" value="" class="form-control"></textarea>
+                </div>
                 <br>
-                <textarea type="text" name="description" value="" class="form-control"></textarea>
-            </div>
-            <br>
-            <div class="form-group">
-                <label for="">ผู้แต่ง</label>
+                <div class="form-group">
+                    <label for="">ผู้แต่ง</label>
+                    <br>
+                    <input type="text" name="author" value="" class="form-control">
+                </div>
                 <br>
-                <input type="text" name="author" value="" class="form-control">
-            </div>
-            <br>
-            <input type="submit" name="" value="บันทึก">
-        </form>
-    </div>
+                <input type="submit" name="" value="บันทึก">
+            </form>
+        </div>
 </body>
 
 </html>
