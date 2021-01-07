@@ -12,15 +12,13 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 const indexRouter = require('./routes/index')
-const userRouter = require('./routes/users')
 const blogRouter = require('./routes/blog')
 
 app.use('/', indexRouter)
-app.use('/user', userRouter)
 app.use('/blog', blogRouter)
 
 app.listen(port, () => {
-    console.log(`Server is running on port : ${port}`)
+    console.log(`> Server is running on port : ${port}`)
 })
 
 module.exports = app
