@@ -6,7 +6,16 @@ const db = new MongoClient(uri, { useNewUrlParser: true });
 const { check, validationResult } = require('express-validator');
 
 router.get('/', function (req, res, next) {
-    res.render("blog");
+    db.connect(function (err) {
+        if (err) throw (err)
+
+        db.db("TutorialDB").collection("blogs").find({}).toArray(function (err, result) {
+            if (err) throw (err)
+            console.log('All blog: ', result);
+            db.close();
+            res.render("blog", result);
+        });
+    });
 });
 
 router.get('/add', function (req, res, next) {
@@ -43,6 +52,49 @@ router.post('/add', [
         });
         res.redirect('/');
     }
+});
+
+router.post('/update', function (req, res) {
+    const name = req.body.name;
+    const desc = req.body.description;
+    const author = req.body.author;
+    const id = req.body._id;
+
+    db.connect(function (err) {
+        if (err) throw (err)
+
+        var myQuery = {
+            _id: id
+        };
+
+        var newValues = {
+            $set: {
+                name: name,
+                description: desc,
+                author: author
+            }
+        };
+
+        db.db("TutorialDB").collection("blogs").updateOne(myQuery, newValues, function (err, res) {
+            if (err) throw (err)
+
+            console.log("1 document updated");
+            db.close();
+        });
+    });
+    res.render("blog");
+});
+
+router.post('/delete', function (req, res) {
+
+});
+
+router.get('/find', function (req, res) {
+
+});
+
+router.get('/query', function (req, res) {
+
 });
 
 module.exports = router
