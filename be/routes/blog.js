@@ -104,12 +104,4 @@ router.post('/delete', function (req, res) {
     });
 });
 
-router.get('/find', function (req, res) {
-
-});
-
-router.get('/query', function (req, res) {
-
-});
-
 module.exports = router
