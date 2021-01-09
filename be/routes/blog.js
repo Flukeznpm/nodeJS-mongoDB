@@ -86,7 +86,22 @@ router.post('/update', function (req, res) {
 });
 
 router.post('/delete', function (req, res) {
+    const name = req.body.name;
 
+    db.connect(function (err) {
+        if (err) throw (err)
+
+        var myQuery = {
+            name: name
+        }
+
+        db.db("TutorialDB").collection("blogs").deleteOne(myQuery, function (err, obj) {
+            if (err) throw err;
+            console.log("1 document deleted");
+            db.close();
+            res.render("blog");
+        });
+    });
 });
 
 router.get('/find', function (req, res) {
