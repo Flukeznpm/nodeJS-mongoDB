@@ -11,10 +11,10 @@ router.post('/', function (req, res) {
     const author_contact = req.body.author_contact;
 
     db.connect(function (err) {
-        // if (err) throw (err);
+        if (err) throw err;
 
         db.db('TutorialDB').createCollection(collection_name).then(err => {
-            // if (err) throw (err);
+            if (err) throw err;
 
             const insertObj = {
                 author_name: author_name,
@@ -23,7 +23,7 @@ router.post('/', function (req, res) {
             }
 
             db.db('TutorialDB').collection(collection_name).insertOne(insertObj, function (err) {
-                // if (err) throw err;
+                if (err) throw err;
 
                 console.log('> 1 Collection created!');
                 db.close();
