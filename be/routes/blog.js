@@ -6,15 +6,59 @@ const db = new MongoClient(uri, { useNewUrlParser: true });
 const { check, validationResult } = require('express-validator');
 
 router.get('/', function (req, res, next) {
+    const blogs_list = [];
+
     db.connect(function (err) {
         if (err) throw (err)
 
-        db.db("TutorialDB").collection("blogs").find({}).toArray(function (err, result) {
-            if (err) throw (err)
-            console.log('All blog: ', result);
+        db.db("TutorialDB").collection("blogs").aggregate([
+            {
+                $lookup:
+                {
+                    from: 'author',
+                    localField: 'author_id',
+                    foreignField: 'author_id',
+                    as: 'author_join'
+                }
+            }
+        ]).toArray(function (err, res) {
+            if (err) throw err;
+
+            // Way 1 
+
+            const list = JSON.stringify(res);
+            console.log('blogs_list:', list);
+
+            // Way 2
+            
+            // const list = res;
+            // const name = list.map(n => n.name).toString();
+            // const description = list.map(d => d.description).toString();
+            // const author_list = list.map(aj => aj.author_join);
+            // const results = {
+            //     blog_name: name,
+            //     blog_description: description,
+            //     blog_author: author_list
+            // }
+            // blogs_list.push(results);
+            // console.log('blogs_list:', res);
+
             db.close();
-            res.render("blog", result);
         });
+
+        // db.db("TutorialDB").collection("blogs").find({}).toArray(function (err, result) {
+        //     if (err) throw (err)
+        //     const results = {
+        //         Blog_Name:,
+        //         Blog_description:,
+        //         Blog_Author:
+        //     }
+        //     console.log('All blog: ', results);
+        //     db.close();
+        //     res.render("blog", result);
+        // });
+
+
     });
 });
 
