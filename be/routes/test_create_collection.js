@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://nattapong:0504254213242Fk.@sandbox.2ng5o.mongodb.net/Sandbox?retryWrites=true&w=majority";
+const uri = "mongodb+srv://nattapong:<password>.@sandbox.2ng5o.mongodb.net/Sandbox?retryWrites=true&w=majority";
 const db = new MongoClient(uri, { useNewUrlParser: true });
 
 router.post('/', function (req, res) {
